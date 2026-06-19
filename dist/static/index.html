@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MFA Security System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="background-grid"></div>
+    <main class="shell">
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Multi-factor authentication</p>
+                <h1>Cyber Security System</h1>
+                <p class="subtext">
+                    Register a user, confirm login with OTP, and test the protected route
+                    from one interface.
+                </p>
+            </div>
+            <div class="hero-orb hero-orb-left"></div>
+            <div class="hero-orb hero-orb-right"></div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Auth Console</h2>
+                <p>FastAPI + JWT + OTP</p>
+            </div>
+
+            <div class="form-block">
+                <label for="username">Username</label>
+                <input id="username" type="text" placeholder="Enter username">
+            </div>
+
+            <div class="form-block">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Enter password">
+            </div>
+
+            <div class="button-row">
+                <button id="registerBtn" class="btn btn-cyan" type="button">Register</button>
+                <button id="loginBtn" class="btn btn-blue" type="button">Login</button>
+            </div>
+
+            <div class="form-block">
+                <label for="otp">OTP Code</label>
+                <input id="otp" type="text" inputmode="numeric" placeholder="6-digit OTP">
+            </div>
+
+            <button id="verifyBtn" class="btn btn-wide btn-blue" type="button">Verify OTP</button>
+
+            <div class="form-block">
+                <label for="token">JWT Token</label>
+                <textarea id="token" rows="4" placeholder="Your token will appear here after OTP verification"></textarea>
+            </div>
+
+            <button id="protectedBtn" class="btn btn-wide btn-sunset" type="button">Protected Route</button>
+
+            <div class="qr-card" id="qrCard" hidden>
+                <div class="qr-header">
+                    <span>QR for authenticator app</span>
+                    <a id="qrLink" href="#" target="_blank" rel="noreferrer">Open image</a>
+                </div>
+                <img id="qrImage" alt="QR code for OTP setup">
+            </div>
+
+            <div class="status-card">
+                <div class="status-title">Server Response</div>
+                <pre id="result">Ready</pre>
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
