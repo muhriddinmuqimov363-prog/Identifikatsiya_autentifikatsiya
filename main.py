@@ -123,14 +123,17 @@ def get_qr(username: str):
 
     try:
         user = db.query(User).filter(User.username == username).first()
+
         if not user:
             return {"error": "User topilmadi"}
 
         uri = get_qr_code_url(username, user.otp_secret)
-        img = qrcode.make(uri)
-        file_path = "qr.png"
-        img.save(file_path)
 
-        return FileResponse(file_path)
+        return {
+            "username": username,
+            "secret": user.otp_secret,
+            "uri": uri
+        }
+
     finally:
         db.close()
