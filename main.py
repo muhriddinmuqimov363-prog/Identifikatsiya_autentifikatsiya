@@ -29,9 +29,12 @@ def register(username: str, password: str):
     db = SessionLocal()
 
     try:
+        
         existing = db.query(User).filter(User.username == username).first()
         if existing:
-            return {"error": "User mavjud"}
+            return {"error": "User mavjud",
+                    "username": existing.username
+                    }
 
         secret = generate_secret()
         qr_url = get_qr_code_url(username, secret)
@@ -50,6 +53,7 @@ def register(username: str, password: str):
             "message": "User yaratildi",
             "qr_url": qr_url,
         }
+        
     except Exception as exc:
         db.rollback()
         return {"error": str(exc)}
@@ -122,18 +126,32 @@ def get_qr(username: str):
     db = SessionLocal()
 
     try:
-        user = db.query(User).filter(User.username == username).first()
+        user = db.query(User).filter(
+            User.username == username
+        ).first()
 
         if not user:
-            return {"error": "User topilmadi"}
+            raise HTTPException(
+                status_code=404,
+                detail="User topilmadi"
+            )
 
-        uri = get_qr_code_url(username, user.otp_secret)
+        uri = get_qr_code_url(
+            username,
+            user.otp_secret
+        )
 
-        return {
-            "username": username,
-            "secret": user.otp_secret,
-            "uri": uri
-        }
+        img = qrcode.make(uri)
+
+        file_path = f"qr_{username}.png"
+        img.save(file_path)
+
+        return FileResponse(
+            file_path,
+            media_type="image/png"
+        )
 
     finally:
         db.close()
+
+    
