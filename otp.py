@@ -21,7 +21,7 @@ def verify_otp(secret, otp):
 
 
 def get_qr_code_url(username, secret):
-    totp = pyotp.TOTP(secret, interval=OTP_INTERVAL_SECONDS)
+    totp = pyotp.TOTP(secret, interval=30)
     return totp.provisioning_uri(
         name=username,
         issuer_name="AuthSystem",
