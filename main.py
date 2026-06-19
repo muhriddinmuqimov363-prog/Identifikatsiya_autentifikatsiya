@@ -153,5 +153,6 @@ def get_qr(username: str):
 
     finally:
         db.close()
+        
 
     

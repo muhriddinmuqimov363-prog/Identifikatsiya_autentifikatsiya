@@ -51,6 +51,15 @@ function showQr(username) {
     qrLink.href = qrUrl;
     qrCard.hidden = false;
 }
+function showQr(username) {
+    const qrUrl = `/qr?username=${encodeURIComponent(username)}&t=${Date.now()}`;
+
+    console.log("QR URL:", qrUrl);
+
+    qrImage.src = qrUrl;
+    qrLink.href = qrUrl;
+    qrCard.hidden = false;
+}
 
 document.getElementById("registerBtn").addEventListener("click", async () => {
     const values = requireFields(["username", "password"]);
